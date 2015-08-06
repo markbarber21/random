@@ -1,0 +1,301 @@
+C++ :
+	someObject->doSomething();
+Objective C:
+	[someObject doSomething];
+	
+//Method										// Selectors or 'method'
+												
+[Employee newEmployee];							// "newEmployee"
+[anEmployee setRaise:200];						// "setRaise:"
+[anEmployee setWork:work withDeadLine:today];	// "setWork:withDeadline:"
+
+
+Objective-C Selectors
+
+NSObject base class.  Single inheritance based language.
+NSObject::"description", see NSLog
+
+If method is never responded, you may forward the message. (remote messaging)
+
+Memory Management:
+----------------------------------------------
+	* The runtime tracks an object's retain count
+	* All objects are created with a retain count of 1
+	* Need an object to stick around? - 'retain' it!
+	* No longer need an object? - 'release' it!
+
+
+	MJFoo * myFoo = [[MyFoo alloc] init];			// Count of 1
+	[myFoo retain];									// count of 2
+	[myFoo release];								// count of 1
+	[myFoo release];								// count of 0, memory taken back
+	
+	
+	AutoRelease Pools
+	-------------------------
+	* Uses the '-autorelease' message.
+	* Sends '-release' to an object at some point in the future.
+	* Often used by class convenience methods
+
+	myString = [NSString stringWithString:@"foo"];	// has a count of 1, but is autoreleased
+													// retain it if you care about it.
+													
+Properties: (encapsulation)
+----------------------------------------------
+	* Quickly and easily create setter/getter pairs.
+	* Specify storage semantics
+	* Easy to override for custom behavior
+
+	@property(readwrite, retain) float speed;		//readonly/readwrite   assign/retain/copy	nonatomic(not threadsafe)
+													// getter=isGoingFast	setter=goingFast // OVERRIDE the default accessor name
+													
+													
+Categories
+----------------------------------------------													
+	* Allows you to mix in functionality without having to subclass.  Effects all instances.
+	
+	@implementation NSString (myAdditions) // any name
+	
+	- (NSString*) swearAtMe {
+		....
+	}
+	
+	@end
+	
+	
+Protocols:
+----------------------------------------------	
+	* List of methods that will be implemented
+ 	* Interface
+
+	@protocol MyProtocol
+	
+	- (void)foo:(int)x
+	- (float)bar;
+	
+	@end
+	
+	-----
+	
+	#import "MyProtocol.h"
+	
+	@interface Foo : NSObject <MyProtocol>
+	...
+	@end
+	
+- if you subclass from an object that included protocols, you will have the same protocols.
+	
+
+===================================================================================
+
+Strings:
+----------------------------------------------	
+	
+	NSString *myString = @"This is a String";
+
+	NSString *myString = [NSString stringWithFormat:@"%d techTalks", 24];
+
+	NSString *pathString = @"Library/Caches/Images/dataCache.txt";
+	NSArray *pathComponents = [pathString pathComponents];
+	NSString *fileName = [pathString lastPathComponent];
+
+	NSString * fileContents = [NSString stringWithContentsOfFile:pathString];
+	
+	
+Arrays:
+----------------------------------------------	
+	Mutable:
+		NSMutableArray * arr = [NSMutableArray array];
+		[arr addobject:@"randomString"];
+		
+	Immutable:
+		NSArray *arr = [NSArray arrayWithObjects:@"foo", @"bar", @"moof", nil];
+		NSString *complexString = [arr componentsJoinedByString:@"--"];			//foo--bar--moof
+
+		
+Dictionaries: (Hash Tables)
+----------------------------------------------
+	Mutable:
+		MSMuteableDictionary *md = [NSMutableDictionary dictionaryWithCapacity:5]
+		[md setObject:@"randomValue" forKey:@"randomKey"];
+		
+	Immutable:
+		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+			@"valueOne", @"keyOne", @"valueTwo", @"keyTwo", nil];
+	
+
+===================================================================================
+
+File I/O:
+----------------------------------------------	
+	NSFileManager class
+	
+	NSFileManager *fm = [NSFileManager defaultManager];
+	if ([fm isWriteableFielAt:path]) {
+		[fm createFileAtPath:[path stringByAppendingPathCompnent:@"foo.bar"]
+													contents:@"foo"
+													attributes: nil];
+	}
+	
+	
+NSLog:
+----------------------------------------------	
+	NSLog(@"Simple debug statement");
+	NSLog(@"There are %d North American Tech Talks", numberOfNATechTalks);
+	NSLog(@"Got an array: %@", myArray);										//%@ means object  -- uses the description method
+	NSLog(@"Got a dictionary: %@", myDictionary);								
+	
+
+Bundles:
+----------------------------------------------	
+	* Executable
+	* User Interface (nib) files
+	* Metadata (info.plist)
+	* Resources
+	
+	NSBundle class
+		Resource access
+			Images
+			Sounds
+			Default data
+		Read only
+			Code signing requires static bundle
+			Write new data to sandbox
+	
+	//Ex:
+			
+	NSBundle *appBundle = [NSBundle mainBundle];
+	
+	NSString *imagePath = [appBundle pathForResource:@"logo" oftype:@"png"];
+	UIImage * logoImage = [[UIImage alloc] initWithContentsOfFile:imagePath];
+	
+	NSString *defaultDB = [appBundle pathForResource:@"db" ofType:@"sql"];
+	if (sqlite3_open([defaultDB UTF8String], &database) == SQLITE_OK){
+		// fetch data from default db....
+	}
+
+
+Networking:
+----------------------------------------------
+	Standard sockets programming
+		CFNetwork, CFSocket
+		POSIX
+	NSURLConnection	// May be very useful
+		Asynchronous request loading
+	NSXML
+		Basic parser
+	Bonjour
+	
+	
+UIKit
+----------------------------------------------
+	UIWebView
+	
+
+
+
+Model-View-Controller
+----------------------------------------------
+	Model: 
+		Data and Business Logic
+		Foundation Code
+	Controller:
+		UIKit View Controllers
+	View: UI
+		UIKit Views
+		
+		
+	Target: 	Object that will respond.
+		MyViewController as example
+	Action:		How will the object respond
+	
+	
+	
+Notifications
+----------------------------------------------
+	Register with the Notification Center
+	Observer/Controller can trigger on notification.
+	
+	
+	MPMoviePlayerController * mpc;
+	NSURL * url = [NSURL urlWithString:@"http://foo.com/movie.mov"];
+	mpc = [[MPMoviePlayerController alloc] initWithContentURL:url];
+	
+	// Register for device notifications
+	[[NSNotificationCenter defaultCenter] addObserver:self
+		selector:@selector(movieLoaded:)
+		name:MPMoviePlayerContentPreloadDidFinishNotfication
+		object:mpc];
+	
+
+	
+===================================================================================
+
+-------------------- .h File --------------------
+
+@interface Person : NSObject {
+	NSString * name;
+	int age;
+	NSMutableArray * parents;
+}
+
++ (person *)personWithName:(NSString *)name;		// + class method
+- (id)initWithName:(NSString *)name;				// id is the basic type, you can refer to an object by id
+
+- (int)age;
+- (void)setAge:(int)newAge;
+OR
+@property(readwrite) int age;
+
+- (NSArray *)parents;
+- (void)setParents:(NSArray *)parents;
+OR
+@property(readwrite) NSArray* parents;
+
+@ end
+
+
+-------------------- .m File --------------------
+
+#import "Person.h"
+
+@implementation Person
+
+@synthesize age, parents;
+	
+- (id)init {
+	if (self = [super init]){
+		name = @"NewPerson";					// String Literal begins with @
+		parents = [[NSArray alloc] init];
+	}
+}
+
+-(void)dealloc{
+	[name release];
+	[parents release];
+	[super dealloc];
+}
+
+- (int)age {
+	return age;
+}
+
+- (void)setAge:(int)newAge {
+	age = newAge;
+}
+
+- (NSString *)name {
+	return name;
+}
+
+- (void)setName:(NSString *)newName {
+	if (newName != name){
+		[newName retain];
+		[name release];
+		name = newName;
+	}
+}
+
+
+@end
+

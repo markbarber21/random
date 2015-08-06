@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Please see the console.</p>
+
+<!-- <button type="button" onclick="myFunction()">Try it</button> -->
+<!-- <script src="myScript.js"></script> -->
+
+<script>
+
+console.log("--------------------------------------------------------");
+console.log("--------------------------------------------------------");
+
+
+// ----------------- Helper functions -----------
+function logIt(obj) {
+    console.log("--- Object creation with Internal prototype call ---");
+    console.log("Child Class Attribute: " + obj.myAttribute);
+    console.log("Virt: " + obj.virtFunct());
+
+    if (obj.baseFunct) {
+        console.log("Base Class Function: " + obj.baseFunct());
+    }
+    else {
+        console.log("**** Class missing baseFunct ****");
+    }
+        
+    console.log(obj); 
+}
+
+
+
+// -- Base Class Object Constructor
+function BaseClass(val){
+    this.publicProperty=val; 
+    this.doThis = function(){};
+    this.doThat = function(){};
+    this.virtFunct = function () {
+        return "Base Class virtFunct";
+    };
+}
+
+BaseClass.prototype.baseFunct = function() {
+    return this.publicProperty;
+};
+
+//  ------------------- Example -------------------   
+function SimpleClass(val){
+    BaseClass.call(this, val);
+    this.myAttribute = "Attribute Specific to SimpleClass";
+    
+    // This can not be done in the Object Constructor
+    //  I must assume the prorotype is not available yet
+    SimpleClass.prototype = Object.create(BaseClass.prototype);
+}
+
+// Create and log
+var simple = new SimpleClass("SimpleClass Passed Value");
+logIt(simple);
+
+
+
+//  ------------------- Example -------------------   
+function NormClass(val){
+    BaseClass.call(this, val);
+    this.myAttribute = "Attribute Specific to NormClass";
+
+    this.virtFunct = function () {
+        return "Outer Class virtFunct";
+    };    
+}
+NormClass.prototype = Object.create(BaseClass.prototype);
+
+// Create and log
+var out = new NormClass("NormalClass Passed Value");
+logIt(out);
+
+
+/*
+    var intermediate = function() {};
+	intermediate.prototype = BaseClass.prototype;
+	DerivedClass.prototype = new intermediate;
+	// DerivedClass.prototype = Object.create(BaseClass.prototype);
+
+
+	// not sure wha this does...
+	// this.prototype.constructor = Person;
+*/
+
+
+</script>
+
+</body>
+</html>

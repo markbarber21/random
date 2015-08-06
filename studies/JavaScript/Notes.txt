@@ -1,0 +1,57 @@
+Notes:
+
+getElementByID
+
+URI: Uniform Resource Identifier
+	
+Content Negotion: Uses URI and can serve various file types onder one URI
+
+Logging to the console: console.log(anything);
+
+//comment
+
+camelCase
+
+isCaseSensitive
+
+Global Scope
+	- If not use var
+	- window.varname
+
+Data Types: 
+http://www.w3schools.com/js/js_type_conversion.asp 
+
+
+Strings
+——— 
+Do not treat strings as arrays.  Use charAt(pos)
+
+
+Arrays
+—————
+The Difference Between Arrays and Objects?
+	In JavaScript, arrays use numbered indexes.  
+	In JavaScript, objects use named indexes.
+
+	Note	Arrays are a special kind of objects, with numbered indexes.
+
+function isArray(myArray) {
+    return myArray.constructor.toString().indexOf("Array") > -1;
+}
+——————
+
+variablename = (condition) ? value1:value2 
+
+————
+for (x in object) {
+    text += object[x];
+}
+——— 
+
+
+
+
+
+
+
+

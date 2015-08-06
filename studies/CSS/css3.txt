@@ -1,0 +1,72 @@
+blogs.msdn.com/dorischen/
+
+
+CSS:
+	Layout
+	Colors
+	Fonts and Text
+	Backgrounds
+	Borders
+	Floats
+	
+Selector {property:value; property:value;}
+
+Browsers use prefixes: -ms- -moz- -webkit-
+Prefixes can be removed when it is finalized.
+
+Web Fonts:
+	WOFF (Web Open Font Format)
+	@font-face {
+		src:url(http://...myfont.ttf)
+		unicode-range: u+0-7F;
+	}
+	
+	Example:  lostworldsfairs.com
+	
+Media Queries:
+	Allow to queries on screen resolution so you can import different style sheets per type.
+	@media screen and (max-width: 60px){
+	 	body{
+			fontsize = %80%
+		}
+	}
+	
+	@media (min-width: 500px)
+	{
+		.foo{
+			//show 500
+		}
+	}
+	
+	Example:  mediaqueri.es
+	
+Layout:
+	Grid Layouts-
+		Div's can cross over grids and have a range.
+		#grid{
+			display: -ms-grid;
+			-ms-grid-columns: auto 1fr;
+		}
+		#foo { -ms-grid-column: 1; -ms-grid-row: 1}
+		#foo2 {...column:2; ....row:1; grod-row-span: 2}
+		
+		column:x = how many columns
+		row:x = which row
+		
+	Example:  the grid system
+	IE test drive has examples of the CSS3 work.
+	
+Multiple Column layouts:
+	Adaptive Components
+	- FlexBox
+	- MultiColumn
+
+	Example: http://griddle.it/
+
+
+
+
+
+
+
+

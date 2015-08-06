@@ -1,0 +1,17 @@
+FuturesJS
+@coolaj86
+AJ Oneal
+
+JS library need for sequencing
+container based function sequencing to eliminate scoping
+sequence.then(func1)
+sequence.then(func2)
+
+Every function has a callback to pull next.
+Alternative jQuery deferred objects.
+
+Native Javascript does not support this properly, and the need for libraries to fix this is the result.
+I see a large group of JS individuals that are trying to overcome the language and develop a personal toolbox.
+
+Don't use anonymous functions, or your stack is useless.
+
