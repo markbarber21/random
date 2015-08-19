@@ -1,0 +1,17 @@
+
+
+https://spring.io/guides/gs/rest-service/
+
+
+{
+	mvn spring-boot:run
+
+	or
+
+	mvn clean package
+	java -jar gs-maven-0.1.0.jar
+}
+
+
+http://localhost:8080/greeting
+localhost:8080/greeting?name=Mark
