@@ -30,3 +30,4 @@ local.properties
 .buildpath
 studies/Java/spring/Maven/target
 studies/Java/spring/Maven/dependency-reduced-pom.xml
+studies/Java/spring/gs-rest-service/target
