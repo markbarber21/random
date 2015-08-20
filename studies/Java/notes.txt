@@ -7,3 +7,6 @@ http://docs.oracle.com/javase/tutorial/javabeans/
 Spring Bean, dependency injection:
 http://docs.spring.io/spring-javaconfig/docs/1.0.0.M4/reference/html/ch02s02.html
 
+
+Annotations
+https://docs.oracle.com/javase/tutorial/java/annotations/declaring.html
